@@ -1,16 +1,25 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
 import './App.css';
-import {Home} from "./Screens/Home";
+import './custom.scss';
 import {NavigationBar} from "./Components/NavigationBar";
+import {Home} from "./Screens/Home";
+import Container from "react-bootstrap/Container";
+import {Enroll} from "./Screens/Enroll";
+import {Login} from "./Screens/Login";
+import {Console} from "./Screens/Console";
 
 function App() {
+    console.log(global.USER);
   return (
     <React.Fragment>
-        <NavigationBar/>
       <Router>
         <Switch>
-          <Route path={'/Home'} component={Home}/>
+          <Route exact path="/" render={()=><Redirect to="/home"/>}/>
+          <Route exact path="/home" component={Home} />
+            <Route exact path="/enroll" component={Enroll} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/console" component={Console}/>
         </Switch>
       </Router>
     </React.Fragment>

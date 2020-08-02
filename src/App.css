@@ -52,3 +52,47 @@
   border-color: white;
   color: #282c34;
 }
+
+.nav-buttons:active {
+  background-color: rgba(255, 255, 255, 0.5);
+  border-color: white;
+  box-shadow: #282c34;
+  background-color: #ebc934;
+}
+
+.h1-large {
+  color: black;
+  font-size: 50px;
+  font-family: "Roboto Medium", serif;
+}
+
+.h1-small {
+  color: black;
+  font-size: 35px;
+  font-family: "Roboto Medium", serif;
+}
+
+.h3-large {
+  color: black;
+  font-size: 25px;
+  font-family: "Roboto", serif;
+}
+
+.h3-small {
+  color: black;
+  font-size: 20px;
+  font-family: "Roboto", serif;
+}
+
+.p-large {
+  color: black;
+  font-size: 20px;
+  font-family: "Roboto", serif;
+}
+
+.p-small {
+  color: black;
+  font-size: 15px;
+  font-family: "Roboto Light", serif;
+}
+

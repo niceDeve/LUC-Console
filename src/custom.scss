@@ -1,0 +1,13 @@
+// change the theme
+$theme-colors: (
+        "primary": #ebc934,
+        "secondary": #efefef,
+        "danger": #ff4136
+);
+
+$sidebar-bg-color: #ebc934;
+$highlight-color: #efefef;
+
+// Import Bootstrap and its default variables
+@import '~bootstrap/scss/bootstrap.scss';
+@import '~react-pro-sidebar/dist/scss/styles.scss';
