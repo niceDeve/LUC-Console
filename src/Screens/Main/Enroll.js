@@ -6,8 +6,8 @@ import {FormControl, InputGroup} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import {Redirect} from "react-router-dom";
 import Spinner from "react-bootstrap/Spinner";
-import {User} from "../Objects/objects";
-import {NavigationBar} from "../Components/NavigationBar";
+import {User} from "../../Objects/objects";
+import {NavigationBar} from "../../Components/Navigation/NavigationBar";
 
 /*
 Component for handling enrollment.
@@ -109,7 +109,7 @@ export class Enroll extends Component {
                 <NavigationBar/>
 
                 {this.state.enrollingState === 2 ? (
-                    <Redirect push to="/console" />
+                    <Redirect push to="/console/dashboard" />
                 ): null}
                 <Row style={{height: 800}}>
                     <Col style={{backgroundColor: '#ebc934'}}>

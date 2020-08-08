@@ -4,7 +4,7 @@ import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
-import {NavigationBar} from "../Components/NavigationBar";
+import {NavigationBar} from "../../Components/Navigation/NavigationBar";
 
 export class Home extends Component {
 
@@ -30,7 +30,7 @@ export class Home extends Component {
 
                         <ListGroup horizontal={'md'}>
                         <Card style={{width: 300, padding: 20, backgroundColor: 'rgba(0,0,0,0)', borderWidth: 0, alignItems: 'center'}}>
-                            <Card.Img style={{width: 100, height: 100, marginBottom: 10}} variant="top" src={require('../assets/LUC_card1.png')}/>
+                            <Card.Img style={{width: 100, height: 100, marginBottom: 10}} variant="top" src={require('../../assets/LUC_card1.png')}/>
                             <Card.Body>
                                 <Card.Title style={{textAlign: 'center'}} className="p-large">Reduce</Card.Title>
                                 <Card.Text style={{textAlign: 'center'}} className="p-small">
@@ -40,7 +40,7 @@ export class Home extends Component {
                         </Card>
 
                         <Card style={{width: 300, padding: 20, backgroundColor: 'rgba(0,0,0,0)', borderWidth: 0, alignItems: 'center'}}>
-                            <Card.Img style={{width: 100, height: 100, marginBottom: 10}} variant="top" src={require('../assets/LUC_card2.png')}/>
+                            <Card.Img style={{width: 100, height: 100, marginBottom: 10}} variant="top" src={require('../../assets/LUC_card2.png')}/>
                             <Card.Body>
                                 <Card.Title style={{textAlign: 'center'}} className="p-large">Earn</Card.Title>
                                 <Card.Text style={{textAlign: 'center'}} className="p-small">
@@ -50,7 +50,7 @@ export class Home extends Component {
                         </Card>
 
                             <Card style={{width: 300, padding: 20, backgroundColor: 'rgba(0,0,0,0)', borderWidth: 0, alignItems: 'center'}}>
-                                <Card.Img style={{width: 100, height: 100, marginBottom: 10}} variant="top" src={require('../assets/LUC_card3.png')}/>
+                                <Card.Img style={{width: 100, height: 100, marginBottom: 10}} variant="top" src={require('../../assets/LUC_card3.png')}/>
                                 <Card.Body>
                                     <Card.Title style={{textAlign: 'center'}} className="p-large">Redeem</Card.Title>
                                     <Card.Text style={{textAlign: 'center'}} className="p-small">
@@ -60,7 +60,7 @@ export class Home extends Component {
                             </Card>
 
                             <Card style={{width: 300, padding: 20, backgroundColor: 'rgba(0,0,0,0)', borderWidth: 0, alignItems: 'center'}}>
-                                <Card.Img style={{width: 100, height: 100, marginBottom: 10}} variant="top" src={require('../assets/LUC_card4.png')}/>
+                                <Card.Img style={{width: 100, height: 100, marginBottom: 10}} variant="top" src={require('../../assets/LUC_card4.png')}/>
                                 <Card.Body>
                                     <Card.Title style={{textAlign: 'center'}} className="p-large">Donate</Card.Title>
                                     <Card.Text style={{textAlign: 'center'}} className="p-small">

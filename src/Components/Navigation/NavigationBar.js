@@ -1,6 +1,6 @@
 import React from "react";
-import '../App.css';
-import '../custom.scss';
+import '../../App.css';
+import '../../custom.scss';
 import {Nav, Navbar} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 
@@ -13,7 +13,7 @@ export const NavigationBar = () => (
             <Navbar.Brand className='nav-brand' href="/">LUC</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav"/>
 
-            {typeof (global.USER) !== 'undefined' ? (
+            {typeof (global.USER) !== 'undefined' && global.USER !== '' ? (
             <Navbar.Collapse className="justify-content-end">
                 <Nav.Link className='nav-link' href="/logout">Logout</Nav.Link>
             </Navbar.Collapse>

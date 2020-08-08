@@ -7,6 +7,9 @@ $theme-colors: (
 
 $sidebar-bg-color: #ebc934;
 $highlight-color: #efefef;
+$icon-bg-color: #ebc934;
+$submenu-bg-color: #ebc934;
+$submenu-bg-color-collapsed: #efefef;
 
 // Import Bootstrap and its default variables
 @import '~bootstrap/scss/bootstrap.scss';

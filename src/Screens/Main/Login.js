@@ -6,8 +6,8 @@ import {FormControl, InputGroup} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Spinner from "react-bootstrap/Spinner";
 import {Redirect} from "react-router-dom";
-import {User} from "../Objects/objects";
-import {NavigationBar} from "../Components/NavigationBar";
+import {User} from "../../Objects/objects";
+import {NavigationBar} from "../../Components/Navigation/NavigationBar";
 
 /*
 Component for handling logins.
@@ -56,7 +56,7 @@ export class Login extends Component {
                 <NavigationBar/>
 
                 {this.state.loginState === 2 ? (
-                    <Redirect push to="/console" />
+                    <Redirect push to="/console/dashboard" />
                 ):null}
 
                 <Row style={{height: 600}}>
