@@ -8,6 +8,7 @@ import {Redirect} from "react-router-dom";
 import Spinner from "react-bootstrap/Spinner";
 import {User} from "../../Objects/objects";
 import {NavigationBar} from "../../Components/Navigation/NavigationBar";
+import {createAccount} from "../../Operators/Operators";
 
 /*
 Component for handling enrollment.
@@ -90,14 +91,15 @@ export class Enroll extends Component {
     }
 
     //User submits data
-    onSubmit() {
+    async onSubmit() {
         if (this.getValidity()) {
             this.setState({enrollingState: 1});
             console.log("Creating LUC account!");
 
-            global.USER = new User(Date.now(), this.firstName, this.lastName, this.email, this.phoneNumber, this.password);
+            global.USER = new User(Date.now(), this.firstName, this.lastName, this.email, this.phoneNumber, this.password, 0, false);
 
-            //@TODO send fetch call to blockchain
+            await createAccount(global.USER);//Create account on blockchain
+            localStorage.setItem('ACCOUNT_EMAIL', global.USER.email);
 
             this.setState({enrollingState: 2});
         }

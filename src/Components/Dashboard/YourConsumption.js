@@ -55,7 +55,7 @@ export class YourConsumption extends Component {
         const diff = this.props.averageConsumption - this.props.yourConsumption;
 
         if (diff > 0) {
-            return diff * this.props.WATTtoLUC;
+            return diff * this.props.WhtoLUC;
         }
 
         return 0;

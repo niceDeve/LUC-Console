@@ -8,6 +8,7 @@ import Spinner from "react-bootstrap/Spinner";
 import {Redirect} from "react-router-dom";
 import {User} from "../../Objects/objects";
 import {NavigationBar} from "../../Components/Navigation/NavigationBar";
+import {login} from "../../Operators/Operators";
 
 /*
 Component for handling logins.
@@ -42,10 +43,10 @@ export class Login extends Component {
         this.forceUpdate();
     }
 
-    onLogin() {
+    async onLogin() {
         this.setState({loginState: 1});
 
-        //@TODO check login credentials with server.
+        global.USER = JSON.parse(await login(this.email))[0];
 
         this.setState({loginState: 2});
     }
@@ -56,7 +57,7 @@ export class Login extends Component {
                 <NavigationBar/>
 
                 {this.state.loginState === 2 ? (
-                    <Redirect push to="/console/dashboard" />
+                    <Redirect push to={{pathname: "/console/dashboard", state: {email: this.email}}} />
                 ):null}
 
                 <Row style={{height: 600}}>
