@@ -13,6 +13,7 @@ export class YourConsumption extends Component {
         this.state = {
             daysLeft: {color: '#000000'},
             daysRemaining: 0,
+
         }
     }
 
@@ -54,7 +55,7 @@ export class YourConsumption extends Component {
         const diff = this.props.averageConsumption - this.props.yourConsumption;
 
         if (diff > 0) {
-            return diff / this.props.LUCtoCAD;
+            return diff * this.props.WATTtoLUC;
         }
 
         return 0;
@@ -62,7 +63,7 @@ export class YourConsumption extends Component {
 
     render() {
         return(
-            <DashboardContainer  width={500}>
+            <DashboardContainer  width={500} padding={30}>
                 <div>
                     <Row>
                         <p className="p-small" style={{marginLeft: 10}}>Period {this.getDateRange()}, </p>
@@ -73,9 +74,9 @@ export class YourConsumption extends Component {
                     <Row>
                     <Col>
                         <p className="p-small" style={{marginTop: 20, marginLeft: 10}}>Your Consumption</p>
-                    <h1 className="h1-small" style={{marginTop: 10, marginLeft: 20}}>{miniAmountFormat(this.props.yourConsumption, 2)}W</h1>
+                    <h1 className="h1-small" style={{marginTop: 10, marginLeft: 20, color: this.props.yourConsumption < this.props.averageConsumption ? '#34B00B' : '#ff4136'}}>{miniAmountFormat(this.props.yourConsumption, 2)}Wh</h1>
                     <p className="p-small" style={{marginTop: 20, marginLeft: 10}}>Average Consumption</p>
-                    <h3 className="h1-small" style={{marginTop: 10, marginBottom: 10, marginLeft: 20}}>{miniAmountFormat(this.props.averageConsumption, 2)}W</h3>
+                    <h3 className="h1-small" style={{marginTop: 10, marginBottom: 10, marginLeft: 20}}>{miniAmountFormat(this.props.averageConsumption, 2)}Wh</h3>
                     </Col>
 
                     <Col>

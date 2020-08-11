@@ -3,8 +3,6 @@ import {Menu, MenuItem, ProSidebar, SidebarHeader, SubMenu} from "react-pro-side
 import Container from "react-bootstrap/Container";
 import {Link, Redirect} from "react-router-dom";
 import Image from "react-bootstrap/Image";
-import {Dashboard} from "../../Screens/Console/Dashboard";
-import {Admin} from "../../Screens/Console/Admin";
 
 export class ConsoleBar extends Component {
 
@@ -36,7 +34,10 @@ export class ConsoleBar extends Component {
                     </SidebarHeader>
                     <Menu iconShape="square" style={{backgroundColor: '#ebc934'}}>
                         <MenuItem className="p-large" href="/console/dashboard" icon={<Image src={require('../../assets/baseline_dashboard_black_48dp.png')} style={{height: 35, width: 35}}/>}>Dashboard<Link to="/console/dashboard"/></MenuItem>
-                        <MenuItem className="p-large" href="/console/admin" icon={<Image src={require('../../assets/baseline_admin_panel_settings_black_48dp.png')} style={{height: 35, width: 35}}/>}>Admin<Link to="/console/admin"/></MenuItem>
+                        <SubMenu className="p-large" icon={<Image src={require('../../assets/baseline_admin_panel_settings_black_48dp.png')} style={{height: 35, width: 35}}/>} title='Admin'>
+                            <MenuItem className="p-large" href={'/console/LUCtoCAD'}>Set LUC to CAD<Link to="/console/LUCtoCAD"/></MenuItem>
+                            <MenuItem className="p-large" href={'/console/WhtoLUC'}>Set Wh to LUC<Link to="/console/WHtoLUC"/></MenuItem>
+                        </SubMenu>
                         <SubMenu className="p-large" title="Settings" icon={<Image src={require('../../assets/baseline_settings_black_48dp.png')} style={{height: 35, width: 35}}/>}>
                             <MenuItem className="p-large" onClick={() => this.logout()}>Logout</MenuItem>
                         </SubMenu>

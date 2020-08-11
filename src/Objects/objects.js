@@ -6,3 +6,9 @@ export function User(idUser, firstName, lastName, email, phoneNumber, password) 
     this.phoneNumber = phoneNumber;
     this.password = password;
 }
+
+export function Transaction(transactionId, amount, timestamp) {
+    this.transactionId = transactionId;
+    this.amount = amount;
+    this.timestamp = timestamp;
+}
