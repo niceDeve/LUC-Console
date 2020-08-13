@@ -57,7 +57,7 @@ export class Login extends Component {
                 <NavigationBar/>
 
                 {this.state.loginState === 2 ? (
-                    <Redirect push to={{pathname: "/console/dashboard", state: {email: this.email}}} />
+                    <Redirect push to={{pathname: "/console/dashboard", state: {email: this.email}}}/>
                 ):null}
 
                 <Row style={{height: 600}}>

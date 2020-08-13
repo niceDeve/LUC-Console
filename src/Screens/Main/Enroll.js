@@ -99,7 +99,6 @@ export class Enroll extends Component {
             global.USER = new User(Date.now(), this.firstName, this.lastName, this.email, this.phoneNumber, this.password, 0, false);
 
             await createAccount(global.USER);//Create account on blockchain
-            localStorage.setItem('ACCOUNT_EMAIL', global.USER.email);
 
             this.setState({enrollingState: 2});
         }
@@ -111,7 +110,7 @@ export class Enroll extends Component {
                 <NavigationBar/>
 
                 {this.state.enrollingState === 2 ? (
-                    <Redirect push to="/console/dashboard" />
+                    <Redirect push to={{pathname: "/console/dashboard", state: {email: this.email}}}/>
                 ): null}
                 <Row style={{height: 800}}>
                     <Col style={{backgroundColor: '#ebc934'}}>

@@ -3,15 +3,16 @@ import {ConsoleBar} from "../../Components/Navigation/ConsoleBar";
 import {YourBalance} from "../../Components/Dashboard/YourBalance";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import {User} from "../../Objects/objects";
+import {Transaction, User} from "../../Objects/objects";
 import {YourConsumption} from "../../Components/Dashboard/YourConsumption";
 import {Rates} from "../../Components/Dashboard/Rates";
 import {SyncedAccounts} from "../../Components/Dashboard/SyncedAccounts";
 import {MakeTransfer} from "../../Components/Dashboard/MakeTransfer";
 import {Transactions} from "../../Components/Dashboard/Transactions";
 import { Gradient } from 'react-gradient';
-import {getConsumption, getLUC, getLUCtoCAD, getWhtoLUC, login} from "../../Operators/Operators";
+import {getAwards, getConsumption, getLUC, getLUCtoCAD, getTrades, getWhtoLUC, login} from "../../Operators/Operators";
 import Spinner from "react-bootstrap/Spinner";
+import {Trade} from "../../Components/Modals/Trade";
 
 export class Dashboard extends Component {
 
@@ -20,6 +21,7 @@ export class Dashboard extends Component {
 
         this.state = {
             user: '',
+            transfer: false,
             LUCBalance: 0,
             yourConsumption: 0,
             averageConsumption: 0,
@@ -46,13 +48,13 @@ export class Dashboard extends Component {
         const LUCtoCADConversion = JSON.parse(await getLUCtoCAD());
         let LUCtoCAD = 0;
         if (LUCtoCADConversion.length > 0) {
-            LUCtoCAD = LUCtoCADConversion[0].conversion;
+            LUCtoCAD = LUCtoCADConversion[LUCtoCADConversion.length-1].conversion;
         }
 
         const WhtoLUCConversion = JSON.parse(await getWhtoLUC());
         let WhtoLUC = 0;
         if (WhtoLUCConversion.length > 0) {
-            WhtoLUC = WhtoLUCConversion[0].conversion;
+            WhtoLUC = WhtoLUCConversion[WhtoLUCConversion.length-1].conversion;
         }
 
         const consumptionData = JSON.parse(await getConsumption());
@@ -63,22 +65,55 @@ export class Dashboard extends Component {
 
         const avConsumption = totalConsumption / consumptionData.length;
 
-        this.setState({user: user, LUCBalance: LUCBalance, LUCtoCAD: LUCtoCAD, WhtoLUC: WhtoLUC, averageConsumption: avConsumption});
+        const transactions = await this.getTransactions(user);
+
+        this.setState({
+            user: user,
+            LUCBalance: LUCBalance,
+            LUCtoCAD: LUCtoCAD,
+            WhtoLUC: WhtoLUC,
+            averageConsumption: avConsumption,
+            transactions: transactions
+        });
     }
 
-    getTransactions() {
+    async getTransactions(user) {
+        const tradeData = JSON.parse(await getTrades(user));
+        const awardData = JSON.parse(await getAwards(user));
 
+        let transactions = [];
+        for (let i = 0; i < tradeData.length; i++) {
+            const transaction = new Transaction(tradeData[i].transactionId, tradeData[i].coin.amount, 'TRADE', tradeData[i].timestamp);
+            transactions.push(transaction);
+        }
+
+        for (let i = 0; i < awardData.length; i++) {
+            const transaction = new Transaction(awardData[i].transactionId, 0, 'AWARDED', awardData[i].timestamp);
+            transactions.push(transaction);
+        }
+
+        if (transactions.length === 0) {
+            transactions.push('NO_TRANSACTIONS');
+        }
+
+        return transactions;
     }
 
     render() {
 
+        console.log(this.state.transfer);
 
         return(
             <div style={{height: 1200, backgroundColor: '#efefef'}}>
                 <Row  style={{height: '100%'}}>
                     <Col md="auto"  style={{height: '100%'}}>
-                        <ConsoleBar/>
+                        <ConsoleBar user={this.state.user}/>
                     </Col>
+
+                    {this.state.transfer ? (
+                        <Trade isVisible={this.state.transfer} onDismiss={() => this.setState({transfer: false})}
+                        user={this.state.user} LUCBalance={this.state.LUCBalance}/>
+                    ) : null}
 
                     {this.state.user !== '' ? (
                     <Col>
@@ -112,8 +147,8 @@ export class Dashboard extends Component {
                                 <SyncedAccounts/>
                             </Row>
                             <Row>
-                                <MakeTransfer/>
-                                <Transactions/>
+                                <MakeTransfer onClick={()=>this.setState({transfer: true})}/>
+                                <Transactions transactions={this.state.transactions}/>
                             </Row>
                         </div>
                     </Col>

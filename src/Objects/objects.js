@@ -9,8 +9,9 @@ export function User(idUser, firstName, lastName, email, phoneNumber, password, 
     this.admin = admin;
 }
 
-export function Transaction(transactionId, amount, timestamp) {
+export function Transaction(transactionId, amount, type, timestamp) {
     this.transactionId = transactionId;
     this.amount = amount;
+    this.type = type;
     this.timestamp = timestamp;
 }

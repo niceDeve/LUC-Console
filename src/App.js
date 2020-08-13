@@ -8,6 +8,7 @@ import {Login} from "./Screens/Main/Login";
 import {Dashboard} from "./Screens/Console/Dashboard";
 import {LUCtoCAD} from "./Screens/Console/Admin/LUCtoCAD";
 import {WhtoLUC} from "./Screens/Console/Admin/WhtoLUC";
+import {AwardLUC} from "./Screens/Console/Admin/AwardLUC";
 
 function App() {
     console.log(global.USER);
@@ -22,6 +23,7 @@ function App() {
             <Route exact path="/console/dashboard" component={Dashboard}/>
             <Route exact path="/console/LUCtoCAD" component={LUCtoCAD}/>
             <Route exact path="/console/WhtoLUC" component={WhtoLUC}/>
+            <Route exact path="/console/AwardLUC" component={AwardLUC}/>
             <Route exact path="/console" render={()=><Redirect to="/console/dashboard"/>}/>
         </Switch>
       </Router>

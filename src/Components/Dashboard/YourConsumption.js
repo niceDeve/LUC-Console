@@ -63,7 +63,7 @@ export class YourConsumption extends Component {
 
     render() {
         return(
-            <DashboardContainer  width={500} padding={30}>
+            <DashboardContainer  width={500} padding={30} onClick={()=>{}}>
                 <div>
                     <Row>
                         <p className="p-small" style={{marginLeft: 10}}>Period {this.getDateRange()}, </p>
