@@ -10,7 +10,16 @@ import {SyncedAccounts} from "../../Components/Dashboard/SyncedAccounts";
 import {MakeTransfer} from "../../Components/Dashboard/MakeTransfer";
 import {Transactions} from "../../Components/Dashboard/Transactions";
 import { Gradient } from 'react-gradient';
-import {getAwards, getConsumption, getLUC, getLUCtoCAD, getTrades, getWhtoLUC, login} from "../../Operators/Operators";
+import {
+    getAwards,
+    getConsumption,
+    getLUC,
+    getLUCtoCAD,
+    getTrades,
+    getWhtoLUC,
+    login,
+    trade
+} from "../../Operators/Operators";
 import Spinner from "react-bootstrap/Spinner";
 import {Trade} from "../../Components/Modals/Trade";
 
@@ -83,9 +92,15 @@ export class Dashboard extends Component {
 
         let transactions = [];
         for (let i = 0; i < tradeData.length; i++) {
-            const transaction = new Transaction(tradeData[i].transactionId, tradeData[i].coin.amount, 'TRADE', tradeData[i].timestamp);
+            let transaction = new Transaction(tradeData[i].transactionId, tradeData[i].amount, 'TRADE', tradeData[i].timestamp);
+
+            if (tradeData[i].oldOwner === 'resource:org.london.luc.User#' + user.idUser) {
+                transaction = new Transaction(tradeData[i].transactionId, -tradeData[i].amount, 'TRADE', tradeData[i].timestamp);
+            }
             transactions.push(transaction);
         }
+
+        transactions.reverse();
 
         for (let i = 0; i < awardData.length; i++) {
             const transaction = new Transaction(awardData[i].transactionId, 0, 'AWARDED', awardData[i].timestamp);
@@ -111,7 +126,9 @@ export class Dashboard extends Component {
                     </Col>
 
                     {this.state.transfer ? (
-                        <Trade isVisible={this.state.transfer} onDismiss={() => this.setState({transfer: false})}
+                        <Trade isVisible={this.state.transfer} onDismiss={() => {
+                            this.setState({transfer: false});
+                        this.componentDidMount();}}
                         user={this.state.user} LUCBalance={this.state.LUCBalance}/>
                     ) : null}
 

@@ -6,7 +6,7 @@ import Col from "react-bootstrap/Col";
 import {Form, InputGroup} from "react-bootstrap";
 import {formatMoney} from "../../Constants/Constants";
 import Spinner from "react-bootstrap/Spinner";
-import {getLUC, login} from "../../Operators/Operators";
+import {getLUC, login, trade} from "../../Operators/Operators";
 
 export class Trade extends Component {
 
@@ -45,6 +45,15 @@ export class Trade extends Component {
             this.setState({validAmount: true});
         } else {
             this.setState({validAmount: false});
+        }
+    }
+
+    async trade() {
+        if (this.amount !== 0 && this.state.user !== '' && this.state.user !== '-') {
+            this.setState({stage: 1});
+            await trade(this.state.user, this.props.user, this.amount);
+
+            this.setState({stage: 2});
         }
     }
 
@@ -116,7 +125,7 @@ export class Trade extends Component {
                     </Button>
                     <Form.Group as={Row}>
                             {this.state.stage === 0 ? (
-                                <Button onClick={() => {}} disabled={!this.state.validAmount}>Transfer</Button>
+                                <Button onClick={() => this.trade()} disabled={!this.state.validAmount}>Transfer</Button>
                             ) : this.state.stage === 1 ? (
                                 <Spinner style={{marginTop: 30}} animation="border" variant="primary"/>
                             ) : (

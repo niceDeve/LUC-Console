@@ -5,8 +5,35 @@ import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 import {NavigationBar} from "../../Components/Navigation/NavigationBar";
+import {getAllLUC, getLUCtoCAD} from "../../Operators/Operators";
+import {formatMoney} from "../../Constants/Constants";
 
 export class Home extends Component {
+
+    constructor() {
+        super();
+
+        this.state = {
+            totalLUCValue: -1,
+        }
+    }
+
+    async componentDidMount() {
+        const allLUC = JSON.parse(await getAllLUC());
+        const LUCtoCAD = JSON.parse(await getLUCtoCAD());
+
+        let conversion = 0;
+        if (LUCtoCAD.length > 0) {
+            conversion = LUCtoCAD[LUCtoCAD.length - 1].conversion;
+        }
+
+        let totalLUC = 0;
+        for (let i = 0; i < allLUC.length; i++) {
+            totalLUC += allLUC[i].quantity;
+        }
+
+        this.setState({totalLUCValue: (totalLUC * conversion)});
+    }
 
     render() {
         return (
@@ -72,14 +99,16 @@ export class Home extends Component {
                     </Container>
                 </Jumbotron>
 
+                {this.state.totalLUCValue !== -1 ? (
                 <Jumbotron style={{backgroundColor: '#efefef', borderRadius: 20}}>
                     <Container style={{marginWidth: 50}}>
-                        <h1 className="h1-large" style={{width: '100%', textAlign: 'center'}}>$120,568.00</h1>
+                        <h1 className="h1-large" style={{width: '100%', textAlign: 'center'}}>${formatMoney(this.state.totalLUCValue)} CAD</h1>
                         <h3 className="h3-small" style={{width: '100%', textAlign: 'center', marginTop: 20, marginBottom: 20}}>
                             Worth of LUC are currently in member accounts ready to redeem or trade.
                         </h3>
                     </Container>
                 </Jumbotron>
+                ): null}
             </>
         );
     }

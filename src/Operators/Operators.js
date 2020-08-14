@@ -1,4 +1,4 @@
-const URL = 'http://192.168.2.73:3000/api'
+const URL = 'http://192.168.2.24:3000/api'
 
 
 /*
@@ -71,6 +71,33 @@ Gets LUCs for a user
 export async function getLUC(user) {
 
     const url = URL + '/queries/selectCoinByOwner?idUser=resource%3Aorg.london.luc.User%23' + user.idUser;
+
+    return new Promise((resolve, reject) => {
+        //Sends request to server.
+        fetch(url, {
+            method: 'GET',
+            headers: new Headers({'Accept': 'application/json'}),
+        })
+            .then((response) => response.text())//Awaits response.
+            .then((reply) => {
+
+                console.log(reply);
+                resolve(reply);
+
+            })
+            .catch((error) => {
+                resolve(false);
+                console.log(error);
+            });
+    });
+}
+
+/*
+Gets LUCs for a user
+*/
+export async function getAllLUC() {
+
+    const url = URL + '/Coin';
 
     return new Promise((resolve, reject) => {
         //Sends request to server.
@@ -314,9 +341,8 @@ export async function awardCoin(user) {
 
 /*
 Transfers LUC
-@TODO, fix this?
  */
-export async function trade(newUser, oldUser) {
+export async function trade(newUser, oldUser, amount) {
 
     return new Promise((resolve, reject) => {
         //Sends request to server.
@@ -325,6 +351,9 @@ export async function trade(newUser, oldUser) {
             headers: new Headers({'content-type': 'application/json', 'Accept': 'application/json'}),
             body: JSON.stringify({
                 $class: 'org.london.luc.Trade',
+                amount: amount,
+                newOwner: newUser.idUser,
+                oldOwner: oldUser.idUser
             })
         })
             .then((response) => response.text())//Awaits response.
